@@ -7,7 +7,7 @@ name = "romanizerth"
 dynamic = ["version"]
 description = "A custom Thai-to-Roman transliteration system"
 readme = "README.md"
-license = "LicenseRef-TER-AI-1.0"
+license = "LicenseRef-TER-AI-2.0"
 license-files = ["LICENSE"]
 requires-python = ">=3.10"
 authors = [{ name = "klanarongz2009-sketch" }]

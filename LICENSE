@@ -1,10 +1,10 @@
-# TER-AI License 1.0
+# TER-AI License 2.0
 
 Copyright (c) 2026-2027 klanarongz2009-sketch
 
 ## 1. What this License covers
 
-This License applies only to files that say they are under the TER-AI License 1.0, for example with the line `SPDX-License-Identifier: LicenseRef-TER-AI-1.0` at the top, or that are listed as under it in the project's license table ("the Licensed Files"). "The Software" means the Licensed Files and any copy or part of them.
+This License applies only to files that say they are under the TER-AI License 2.0, for example with the line `SPDX-License-Identifier: LicenseRef-TER-AI-2.0` at the top, or that are listed as under it in the project's license table ("the Licensed Files"). "The Software" means the Licensed Files and any copy or part of them. Files marked or listed under the TER-AI License 1.0 remain under version 1.0; this version 2.0 text does not replace or relicense them.
 
 It does not cover:
 
@@ -31,6 +31,8 @@ If you distribute the Software or a Modified Version, you must:
 
 - keep the copyright line above and the text of this License (or a link to it) with every copy;
 - credit "TER-AI (klanarongz2009-sketch)" with a link to https://github.com/klanarongz2009-sketch/ter-ai in the notices, documentation or about screen that come with your copy.
+
+If a distributed copy also contains files that remain under TER-AI License 1.0, provide the separate 1.0 terms for those files; this 2.0 text is not a substitute. The archived text is [LICENSE-TER-AI-1.0.md](https://github.com/klanarongz2009-sketch/ter-ai/blob/main/LICENSE-TER-AI-1.0.md).
 
 ## 5. Same license for changes (file-level share-alike)
 
@@ -65,4 +67,4 @@ In no event shall the licensor or contributors be liable for any claim, damages 
 - Every file in the RomanizerTh repository (https://github.com/klanarongz2009-sketch/RomanizerTh) is under this License unless the file says otherwise. This is the project's license table for section 1.
 - The source files also carry this line at the top, in the comment style of their language:
 
-  `SPDX-License-Identifier: LicenseRef-TER-AI-1.0`
+  `SPDX-License-Identifier: LicenseRef-TER-AI-2.0`

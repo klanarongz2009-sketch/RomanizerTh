@@ -118,12 +118,12 @@ See [CHANGELOG.md](CHANGELOG.md) for changes.
 
 ## License
 
-RomanizerTh is licensed under the **TER-AI License 1.0**, SPDX identifier `LicenseRef-TER-AI-1.0`, the maintainer's own license built from MIT and other licenses. Every file in this repository is under it unless the file says otherwise; the source files carry the line `SPDX-License-Identifier: LicenseRef-TER-AI-1.0`. See [LICENSE](LICENSE) for the full text. In short:
+RomanizerTh is licensed under the **TER-AI License 2.0**, SPDX identifier `LicenseRef-TER-AI-2.0`, the maintainer's own license built from MIT and other licenses. Every file in this repository is under it unless the file says otherwise; the source files carry the line `SPDX-License-Identifier: LicenseRef-TER-AI-2.0`. See [LICENSE](LICENSE) for the full text. In short:
 
 - You may use, copy, modify and distribute it, including for commercial purposes, and use it to train, fine-tune or evaluate machine learning models.
 - Attribution is required: if you distribute it, keep the copyright line and the license text (or a link to it), and credit "TER-AI (klanarongz2009-sketch)" with a link to https://github.com/klanarongz2009-sketch/ter-ai.
-- If you distribute a changed file, it must stay under the TER-AI License 1.0, its source must be available, and it must be marked as changed with the date.
+- If you distribute a changed file, it must stay under the TER-AI License 2.0, its source must be available, and it must be marked as changed with the date.
 - It can be combined with GPL-3.0 work, as long as the credit is kept.
 - It comes with no warranty and no liability.
 
-GitHub shows the license as "Other" because the TER-AI License 1.0 is a custom license and is not on the SPDX list.
+GitHub shows the license as "Other" because the TER-AI License 2.0 is a custom license and is not on the SPDX list.

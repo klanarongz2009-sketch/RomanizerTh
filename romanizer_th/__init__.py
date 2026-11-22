@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: LicenseRef-TER-AI-1.0
+# SPDX-License-Identifier: LicenseRef-TER-AI-2.0
 """RomanizerTh: custom Thai-to-Roman transliteration."""
 
 from .core import normalize, romanize

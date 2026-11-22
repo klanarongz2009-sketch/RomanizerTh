@@ -7,4 +7,4 @@ RomanizerTh is a personal indie project by [klanarongz2009-sketch](https://githu
 - **May pause or disappear:** the repository may be paused, suspended or removed at any time, including when the maintainer regains access and reviews it.
 - **AI-assisted:** much of the code and documentation is written by AI assistants and reviewed by the maintainer.
 - **No personal information:** none is published here, and none should be added in issues or pull requests.
-- **License:** TER-AI License 1.0 (`LicenseRef-TER-AI-1.0`), the maintainer's own license built from MIT and others. See [LICENSE](LICENSE) and the License section of the README.
+- **License:** TER-AI License 2.0 (`LicenseRef-TER-AI-2.0`), the maintainer's own license built from MIT and others. See [LICENSE](LICENSE) and the License section of the README.
