@@ -118,7 +118,9 @@ def test_split_sara_am_is_joined():
 
 def test_digits_and_symbols():
     assert romanize("๑๒๓๐") == "1230"
-    assert romanize("๕") == "n"  # kept from the supplied table, open question D4
+    assert romanize("๕") == "5"
+    assert romanize("๑๒๓๔๕") == "12345"
+    assert romanize("๐๑๒๓๔๕๖๗๘๙") == "0123456789"
     assert romanize("ฯลฯ") == "ฯlฯ"
     assert romanize("฿100") == "฿100"
     assert romanize("ฤๅษี") == "ruese"

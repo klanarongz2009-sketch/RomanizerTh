@@ -32,8 +32,9 @@ _add("ญ ย", "Y")
 _add("ฎ ด", "D")
 _add("ฏ ต", "TH")
 _add("ฐ ฑ ฒ ถ ท ธ", "T")
-# The supplied row is "ณ น ๕ N". ๕ is kept as written (open question D4).
-_add("ณ น ๕", "N")
+# The supplied row was "ณ น ๕ N". ๕ was removed from it by the scheme owner,
+# so ๕ is a digit like the others (๕ -> 5).
+_add("ณ น", "N")
 _add("บ", "B")
 _add("ป", "PH")
 _add("ผ พ ภ", "P")
@@ -58,10 +59,9 @@ _add("ำ", "UM")
 _add("ฤ", "RUE")
 _add("ฦ", "LUE")
 
-# Thai digits become ASCII digits (๕ is the exception above, see D4).
+# Thai digits become ASCII digits.
 for _i, _d in enumerate("๐๑๒๓๔๕๖๗๘๙"):
-    if _d not in CHAR_MAP:
-        CHAR_MAP[_d] = str(_i)
+    CHAR_MAP[_d] = str(_i)
 
 # Marks with no roman spelling are dropped.
 # Tone marks, thanthakhat, maitaikhu, phinthu, lakkhangyao, yamakkan, and a

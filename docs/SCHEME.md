@@ -62,11 +62,11 @@ This file is the reference for the scheme. It lists every code point in the Thai
 | U+0E52 | ๒ | 2 |
 | U+0E53 | ๓ | 3 |
 | U+0E54 | ๔ | 4 |
+| U+0E55 | ๕ | 5 |
 | U+0E56 | ๖ | 6 |
 | U+0E57 | ๗ | 7 |
 | U+0E58 | ๘ | 8 |
 | U+0E59 | ๙ | 9 |
-| U+0E55 | ๕ | n (kept from the supplied row `ณ น ๕ N`, see open question D4) |
 
 ## Ignored
 
@@ -108,4 +108,3 @@ These supplied examples disagree with the table. The code follows the table; eac
 | D3a | เป็น | `apn` | `aphn` | the table maps ป to `ph` |
 | D3b | คำ | `kum` | `cum` | the table maps ค to `c` |
 | D3c | ฤดี | `hruede` | `ruede` | the example has a leading `h` that no row gives |
-| D4 | ๕ | (none) | `n` | the supplied row lists ๕ with ณ น; it may be a typo for ณ, in which case ๕ becomes `5` like the other digits |

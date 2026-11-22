@@ -40,7 +40,7 @@ romanizerth --version
 2. Each Thai character is replaced by its spelling from the table below. Leading vowels (เ แ โ ใ ไ) are written where they are typed; nothing is reordered.
 3. Tone marks and other marks with no spelling are dropped.
 4. `ๆ` repeats the last roman letter written before it: `ดีๆ` gives `dee`, `อะไรใหม่ๆ` gives `oairihmm`. A space just before `ๆ` is dropped.
-5. Thai digits become ASCII digits, except `๕` (see the open questions). `ฯ`, `฿` and other Thai punctuation are kept as they are.
+5. Thai digits become ASCII digits (`๑๒๓๔๕` gives `12345`). `ฯ`, `฿` and other Thai punctuation are kept as they are.
 
 There are no whole-word exceptions, so a word gives the same result alone and inside a sentence. The full table for every code point is in [docs/SCHEME.md](docs/SCHEME.md).
 
@@ -60,7 +60,7 @@ There are no whole-word exceptions, so a word gives the same result alone and in
 | ฎ ด | d |
 | ฏ ต | th |
 | ฐ ฑ ฒ ถ ท ธ | t |
-| ณ น ๕ | n |
+| ณ น | n |
 | บ | b |
 | ป | ph |
 | ผ พ ภ | p |
@@ -104,8 +104,6 @@ Three examples in the original specification disagree with the mapping table. Th
 | เป็น | `apn` | `aphn` | the table maps ป to `ph` |
 | คำ | `kum` | `cum` | the table maps ค to `c` |
 | ฤดี | `hruede` | `ruede` | the example has a leading `h` that no row gives |
-
-The row `ณ น ๕ → n` is also kept as written; `๕` may be a typo for `ณ`.
 
 ## Development
 
