@@ -208,6 +208,15 @@ def test_cli_errors_handler_alone_keeps_utf8():
         check=True,
     )
     assert result.stdout.replace(b"\r\n", b"\n") == b"dee\n"
+    # The errors handler is applied: an invalid byte becomes U+FFFD, output stays UTF-8.
+    result = subprocess.run(
+        [sys.executable, "-m", "romanizer_th"],
+        input="฿".encode("utf-8") + b"\xff\n",
+        capture_output=True,
+        env=env,
+        check=True,
+    )
+    assert result.stdout.replace(b"\r\n", b"\n") == "฿\ufffd\n".encode("utf-8")
 
 
 def test_cli_version():
