@@ -1,6 +1,18 @@
 # RomanizerTh
 
-RomanizerTh is a small Python library and command-line tool for Bogus's custom Thai romanization scheme. It applies the supplied character mapping, emits mapped symbols in lowercase, preserves spaces/punctuation and unknown characters, and ignores Thai tone marks that were not assigned a roman spelling.
+RomanizerTh is a small, dependency-free Python library and command-line tool for a custom Thai-to-Roman transliteration scheme. It works character by character from one mapping table, writes lowercase output, keeps spaces, punctuation and non-Thai text as they are, and handles every code point in the Thai Unicode block.
+
+ภาษาไทย: [README.th.md](README.th.md)
+
+> Please read [PROJECT_NOTICE.md](PROJECT_NOTICE.md): this is a personal project with one maintainer, irregular availability and slow replies.
+
+## Install
+
+```sh
+pip install git+https://github.com/klanarongz2009-sketch/RomanizerTh
+```
+
+Requires Python 3.10 or newer.
 
 ## Use
 
@@ -8,49 +20,66 @@ RomanizerTh is a small Python library and command-line tool for Bogus's custom T
 from romanizer_th import romanize
 
 print(romanize("สวัสดี"))  # swasde
+print(romanize("อะไรใหม่ๆ"))  # oairihmm
 ```
 
-Or from a checkout:
+Command line:
 
 ```sh
-python -m romanizer_th "วันจันทร์"
+romanizerth วันจันทร์          # wanjantr
+romanizerth สวัสดี ครับ        # swasde crab
+echo "ดีๆ" | romanizerth      # dee (reads standard input when no text is given)
+romanizerth --version
 ```
 
-## Supplied character mapping
+`python -m romanizer_th` works the same way.
+
+## How it works
+
+1. The input is NFC-normalized, and a split sara am (`ํ` + `า`) is joined into `ำ`, so `ทํา` and `ทำ` both give `tum`.
+2. Each Thai character is replaced by its spelling from the table below. Leading vowels (เ แ โ ใ ไ) are written where they are typed; nothing is reordered.
+3. Tone marks and other marks with no spelling are dropped.
+4. `ๆ` repeats the last roman letter written before it: `ดีๆ` gives `dee`, `อะไรใหม่ๆ` gives `oairihmm`. A space just before `ๆ` is dropped.
+5. Thai digits become ASCII digits, except `๕` (see the open questions). `ฯ`, `฿` and other Thai punctuation are kept as they are.
+
+There are no whole-word exceptions, so a word gives the same result alone and inside a sentence. The full table for every code point is in [docs/SCHEME.md](docs/SCHEME.md).
+
+## Character mapping
 
 | Thai characters | Output |
 | --- | --- |
-| ก | G |
-| ข ฃ | K |
-| ค ฅ ฆ | C |
-| ง | NG |
-| จ | J |
-| ฉ | SH |
-| ช ฌ | CH |
-| ซ ศ ษ ส | S |
-| ญ ย | Y |
-| ฎ ด | D |
-| ฏ ต | TH |
-| ฐ ฑ ฒ ถ ท ธ | T |
-| ณ น ๕ | N |
-| บ | B |
-| ป | PH |
-| ผ พ ภ | P |
-| ฝ ฟ | F |
-| ม | M |
-| ร | R |
-| ว | W |
-| ล ฬ | L |
-| อ | O |
-| ะ า ั เ แ | A |
-| ิ ี | E |
-| ึ ื | UE |
-| ไ ใ | I |
-| โ | O |
-| ุ ู | U |
-| ำ | UM |
-| ฤ | RUE |
-| ฦ | LUE |
+| ก | g |
+| ข ฃ | k |
+| ค ฅ ฆ | c |
+| ง | ng |
+| จ | j |
+| ฉ | sh |
+| ช ฌ | ch |
+| ซ ศ ษ ส | s |
+| ญ ย | y |
+| ฎ ด | d |
+| ฏ ต | th |
+| ฐ ฑ ฒ ถ ท ธ | t |
+| ณ น ๕ | n |
+| บ | b |
+| ป | ph |
+| ผ พ ภ | p |
+| ฝ ฟ | f |
+| ม | m |
+| ร | r |
+| ว | w |
+| ล ฬ | l |
+| อ | o |
+| ห ฮ | h |
+| ะ า ั เ แ | a |
+| ิ ี | e |
+| ึ ื | ue |
+| ไ ใ | i |
+| โ | o |
+| ุ ู | u |
+| ำ | um |
+| ฤ | rue |
+| ฦ | lue |
 
 ## Examples
 
@@ -62,14 +91,33 @@ python -m romanizer_th "วันจันทร์"
 | อะไรใหม่ๆ | `oairihmm` |
 | ดีๆ | `dee` |
 | สามารถ | `samart` |
-| เป็น | `apn` |
-| คำ | `kum` |
-| ฤดี | `hruede` |
+| หนังสือ | `hnangsueo` |
+| ฮา | `ha` |
+| ๑๒๓ | `123` |
 
-The exact supplied examples that differ from direct character substitution are preserved as whole-string overrides. This matters for `เป็น`, `คำ`, `ฤดี`, and `ดีๆ`; the table maps `ป` to `PH`, `ค` to `C`, and `ฤ` to `RUE`, so those outputs cannot be derived from the table alone. The standalone example `อะไรใหม่ → oairihm` and the repeated phrase `อะไรใหม่ๆ → oairihmm` are pinned separately as exact overrides; the latter keeps the extra final `m` even though `ๆ` is otherwise ignored. `๕` appears in the supplied `๕ น N` row and is retained as written; `ณ` is also mapped to `N` as the apparent consonant-table counterpart. The corrected row is `ไ ใ | I`: both leading-vowel letters map to `i`. The repetition mark `ๆ` is ignored, matching `ดีๆ → dee`.
+## Open questions
+
+Three examples in the original specification disagree with the mapping table. The library follows the table, and each case is kept as an expected-failure (`xfail`) test until it is decided:
+
+| Word | Example in the specification | Output from the table | Why they differ |
+| --- | --- | --- | --- |
+| เป็น | `apn` | `aphn` | the table maps ป to `ph` |
+| คำ | `kum` | `cum` | the table maps ค to `c` |
+| ฤดี | `hruede` | `ruede` | the example has a leading `h` that no row gives |
+
+The row `ณ น ๕ → n` is also kept as written; `๕` may be a typo for `ณ`.
 
 ## Development
 
 ```sh
-python -m unittest discover -s tests -v
+python -m venv .venv
+. .venv/bin/activate
+pip install -e ".[dev]"
+pytest -v
 ```
+
+See [CHANGELOG.md](CHANGELOG.md) for changes.
+
+## License
+
+No license has been chosen yet. Until a LICENSE file is added, all rights are reserved by the author.

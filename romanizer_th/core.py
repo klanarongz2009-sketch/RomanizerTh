@@ -1,73 +1,48 @@
-"""Character-map romanizer for the supplied RomanizerTh scheme."""
+"""Rule-based romanizer for the RomanizerTh scheme."""
 
 from __future__ import annotations
 
-# Roman spelling is emitted in lowercase; keys follow the user's supplied table.
-CHAR_MAP: dict[str, str] = {}
+import re
+import unicodedata
+
+from .scheme import CHAR_MAP, IGNORED, PASS_THROUGH, REPEAT_MARK
+
+# Sara am can be typed as one code point (U+0E33) or as nikhahit + sara aa
+# (U+0E4D U+0E32), sometimes with a tone mark in between. NFC does not join them.
+_SPLIT_SARA_AM = re.compile("\u0e4d([\u0e48-\u0e4b]?)\u0e32")
 
 
-def _add(chars: str, value: str) -> None:
-    for char in chars.split():
-        CHAR_MAP[char] = value.lower()
+def normalize(text: str) -> str:
+    """Apply NFC and join a split sara am into U+0E33."""
+    return _SPLIT_SARA_AM.sub("\\1\u0e33", unicodedata.normalize("NFC", text))
 
 
-_add("ก", "G")
-_add("ข ฃ", "K")
-_add("ค ฅ ฆ", "C")
-_add("ง", "NG")
-_add("จ", "J")
-_add("ฉ", "SH")
-_add("ช ฌ", "CH")
-_add("ซ ศ ษ ส", "S")
-_add("ญ ย", "Y")
-_add("ฎ ด", "D")
-_add("ฏ ต", "TH")
-_add("ฐ ฑ ฒ ถ ท ธ", "T")
-_add("ณ น ๕", "N")  # ๕ is retained literally from the supplied mapping.
-_add("บ", "B")
-_add("ป", "PH")
-_add("ผ พ ภ", "P")
-_add("ฝ ฟ", "F")
-_add("ม", "M")
-_add("ร", "R")
-_add("ว", "W")
-_add("ล ฬ", "L")
-_add("อ", "O")
-
-# Vowel signs and leading vowels are transliterated as written, not reordered.
-_add("ะ า ั เ แ", "A")
-_add("ิ ี", "E")
-_add("ึ ื", "UE")
-_add("ไ ใ", "I")
-_add("โ", "O")
-_add("ุ ู", "U")
-_add("ำ", "UM")
-_add("ฤ", "RUE")
-_add("ฦ", "LUE")
-
-# Marks that do not have an entry in the supplied table are omitted.
-IGNORED = frozenset("่ ้ ๊ ๋ ์ ็ ฺ ๆ".split())
-
-# Exact example outputs take precedence where they differ from character-by-character
-# transliteration, and are pinned here to preserve the supplied spellings.
-EXAMPLE_OVERRIDES = {
-    "อะไรใหม่": "oairihm",  # Corrected standalone example.
-    "อะไรใหม่ๆ": "oairihmm",  # Explicitly pin the corrected example.
-    "ดีๆ": "dee",
-    "เป็น": "apn",
-    "คำ": "kum",
-    "ฤดี": "hruede",
-}
+def _repeat_last_letter(out: list[str]) -> None:
+    """Handle ๆ: drop whitespace just before it, then repeat the last roman letter."""
+    while out and out[-1].isspace():
+        out.pop()
+    for piece in reversed(out):
+        for char in reversed(piece):
+            if char.isascii() and char.isalpha():
+                out.append(char)
+                return
+    # ๆ at the start of the text (or after no letter) writes nothing.
 
 
 def romanize(text: str) -> str:
-    """Transliterate text with the supplied character map.
+    """Romanize ``text`` character by character with the RomanizerTh scheme.
 
-    Unknown characters (including spaces and punctuation) are preserved.
-    Exact example overrides preserve the user's supplied sample spellings.
+    Characters outside the Thai block (Latin letters, digits, spaces,
+    punctuation) are kept as they are.
     """
     if not isinstance(text, str):
         raise TypeError("text must be a string")
-    if text in EXAMPLE_OVERRIDES:
-        return EXAMPLE_OVERRIDES[text]
-    return "".join("" if char in IGNORED else CHAR_MAP.get(char, char) for char in text)
+    out: list[str] = []
+    for char in normalize(text):
+        if char in IGNORED:
+            continue
+        if char == REPEAT_MARK:
+            _repeat_last_letter(out)
+            continue
+        out.append(CHAR_MAP.get(char, char))
+    return "".join(out)

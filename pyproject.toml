@@ -4,12 +4,43 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "romanizerth"
-version = "0.1.0"
+dynamic = ["version"]
 description = "A custom Thai-to-Roman transliteration system"
 readme = "README.md"
 requires-python = ">=3.10"
+authors = [{ name = "klanarongz2009-sketch" }]
+keywords = ["thai", "romanization", "transliteration", "nlp"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Natural Language :: Thai",
+    "Topic :: Text Processing :: Linguistic",
+    "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/klanarongz2009-sketch/RomanizerTh"
+Issues = "https://github.com/klanarongz2009-sketch/RomanizerTh/issues"
+Changelog = "https://github.com/klanarongz2009-sketch/RomanizerTh/blob/main/CHANGELOG.md"
+
 [project.scripts]
 romanizerth = "romanizer_th.__main__:main"
 
+[tool.setuptools.dynamic]
+version = { attr = "romanizer_th.__version__" }
+
 [tool.setuptools.packages.find]
 include = ["romanizer_th*"]
+
+[tool.setuptools.package-data]
+romanizer_th = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+xfail_strict = true
