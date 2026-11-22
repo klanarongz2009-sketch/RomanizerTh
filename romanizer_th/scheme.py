@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: LicenseRef-TER-AI-1.0
 """The RomanizerTh scheme: the single source of truth for every Thai code point.
 
 Every code point in the Thai Unicode block (U+0E01 to U+0E5B) is in exactly one

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: LicenseRef-TER-AI-1.0
 """Command-line interface: romanizerth [TEXT ...]
 
 With no TEXT, lines are read from standard input and each is romanized.

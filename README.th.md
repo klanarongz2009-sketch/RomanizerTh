@@ -77,4 +77,12 @@ pytest -v
 
 ## License
 
-ยังไม่ได้เลือก license จนกว่าจะเพิ่มไฟล์ LICENSE สงวนสิทธิ์ทั้งหมดโดยผู้เขียน
+RomanizerTh ใช้ **TER-AI License 1.0** SPDX identifier `LicenseRef-TER-AI-1.0` ซึ่งเป็น license ของผู้ดูแลเอง สร้างจาก MIT และ license อื่น ๆ ทุกไฟล์ในรีโพนี้อยู่ภายใต้ license นี้ เว้นแต่ไฟล์นั้นระบุเป็นอย่างอื่น ไฟล์ source มีบรรทัด `SPDX-License-Identifier: LicenseRef-TER-AI-1.0` ข้อความเต็มดูที่ [LICENSE](LICENSE) (ฉบับภาษาอังกฤษเป็นฉบับที่ใช้บังคับ) สรุปสั้น ๆ:
+
+- ใช้ copy แก้ไข และแจกจ่ายได้ รวมถึงใช้เชิงพาณิชย์ และใช้ train, fine-tune หรือ evaluate โมเดล machine learning ได้
+- ต้องให้เครดิต: ถ้าแจกจ่าย ต้องคงบรรทัด copyright และข้อความ license (หรือลิงก์) และให้เครดิต "TER-AI (klanarongz2009-sketch)" พร้อมลิงก์ https://github.com/klanarongz2009-sketch/ter-ai
+- ถ้าแจกจ่ายไฟล์ที่แก้แล้ว ต้องใช้ TER-AI License 1.0 เหมือนเดิม เปิด source และระบุว่าแก้พร้อมวันที่
+- รวมกับงาน GPL-3.0 ได้ โดยต้องคงเครดิตไว้
+- ไม่มีการรับประกันและไม่มีความรับผิด
+
+GitHub แสดง license เป็น "Other" เพราะ TER-AI License 1.0 เป็น license เฉพาะ ไม่อยู่ในรายการ SPDX

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: LicenseRef-TER-AI-1.0
 import subprocess
 import sys
 import unicodedata

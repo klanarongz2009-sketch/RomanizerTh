@@ -11,6 +11,7 @@
 - `docs/SCHEME.md`, the reference table for every Thai code point.
 - CLI: several words as arguments, standard input when no text is given, and `--version`. Standard input and output are UTF-8 unless `PYTHONIOENCODING` names another encoding; an errors handler alone (`:replace`) keeps UTF-8. Command-line arguments are decoded by Python before the CLI starts.
 - `README.th.md`, `PROJECT_NOTICE.md`, `py.typed`, project metadata, and a test workflow for Python 3.10 to 3.13.
+- `LICENSE`: the project is licensed under the TER-AI License 1.0 (SPDX `LicenseRef-TER-AI-1.0`). Source files carry an `SPDX-License-Identifier` line, and `pyproject.toml` declares the license (PEP 639, setuptools 77 or later). Before this, no license had been chosen.
 - Tests (pytest): a completeness check over the Thai block, the examples inside sentences, `ห`/`ฮ`, `ๆ`, split sara am, the CLI, and `xfail` tests for the three open examples.
 
 ### Changed
