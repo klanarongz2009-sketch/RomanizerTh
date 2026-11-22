@@ -112,6 +112,8 @@ def test_repeat_mark():
     # Non-ASCII Latin letters count too, composed or with a combining mark.
     assert romanize("caf\u00e9ๆ") == "caf\u00e9\u00e9"
     assert romanize("cafe\u0301ๆ") == "caf\u00e9\u00e9"
+    # Fullwidth Latin letters are Latin too.
+    assert romanize("caf\u00e9\uff21ๆ") == "caf\u00e9\uff21\uff21"
 
 
 def test_unassigned_code_points_pass_through():
@@ -192,6 +194,20 @@ def test_cli_respects_pythonioencoding():
         check=True,
     )
     assert result.stdout.strip() == "฿1".encode("cp874")
+
+
+def test_cli_errors_handler_alone_keeps_utf8():
+    import os
+
+    env = dict(os.environ, PYTHONIOENCODING=":replace", PYTHONUTF8="0", LC_ALL="C", LANG="C")
+    result = subprocess.run(
+        [sys.executable, "-m", "romanizer_th"],
+        input="ดีๆ\n".encode("utf-8"),
+        capture_output=True,
+        env=env,
+        check=True,
+    )
+    assert result.stdout.replace(b"\r\n", b"\n") == b"dee\n"
 
 
 def test_cli_version():

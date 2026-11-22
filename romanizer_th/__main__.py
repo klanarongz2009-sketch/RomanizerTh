@@ -23,17 +23,22 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     args = parser.parse_args(argv)
 
-    # UTF-8 by default; an encoding set with PYTHONIOENCODING is respected.
-    use_utf8 = not os.environ.get("PYTHONIOENCODING")
+    # stdin/stdout are UTF-8 unless PYTHONIOENCODING names an encoding.
+    # PYTHONIOENCODING is "encoding[:errors]"; an errors part alone keeps UTF-8.
+    io_encoding, _, io_errors = os.environ.get("PYTHONIOENCODING", "").partition(":")
+    use_utf8 = not io_encoding.strip()
+    stream_options = {"encoding": "utf-8"}
+    if io_errors.strip():
+        stream_options["errors"] = io_errors.strip()
     if use_utf8 and hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stdout.reconfigure(**stream_options)
 
     if args.text:
         print(romanize(" ".join(args.text)))
         return 0
 
     if use_utf8 and hasattr(sys.stdin, "reconfigure"):
-        sys.stdin.reconfigure(encoding="utf-8")
+        sys.stdin.reconfigure(**stream_options)
     for line in sys.stdin:
         print(romanize(line.rstrip("\r\n")))
     return 0
