@@ -109,6 +109,15 @@ def test_repeat_mark():
     assert romanize("ดีๆ ") == "dee "
     assert romanize("ดีๆกัน") == "deegan"
     assert romanize("Okๆ") == "Okk"
+    # Non-ASCII Latin letters count too, composed or with a combining mark.
+    assert romanize("caf\u00e9ๆ") == "caf\u00e9\u00e9"
+    assert romanize("cafe\u0301ๆ") == "caf\u00e9\u00e9"
+
+
+def test_unassigned_code_points_pass_through():
+    gaps = "".join(chr(cp) for cp in range(0x0E3B, 0x0E3F))
+    assert all(unicodedata.name(c, None) is None for c in gaps)
+    assert romanize(gaps) == gaps
 
 
 def test_split_sara_am_is_joined():
@@ -162,6 +171,27 @@ def test_cli_arguments():
 
 def test_cli_stdin():
     assert _cli(stdin="สวัสดี\nดีๆ\n") == "swasde\ndee\n"
+
+
+def test_cli_respects_pythonioencoding():
+    import os
+
+    env = dict(os.environ, PYTHONIOENCODING="cp874")
+    result = subprocess.run(
+        [sys.executable, "-m", "romanizer_th"],
+        input="สวัสดี\n".encode("cp874"),
+        capture_output=True,
+        env=env,
+        check=True,
+    )
+    assert result.stdout.replace(b"\r\n", b"\n") == b"swasde\n"
+    result = subprocess.run(
+        [sys.executable, "-m", "romanizer_th", "฿๑"],
+        capture_output=True,
+        env=env,
+        check=True,
+    )
+    assert result.stdout.strip() == "฿1".encode("cp874")
 
 
 def test_cli_version():

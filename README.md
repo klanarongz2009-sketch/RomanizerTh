@@ -1,6 +1,6 @@
 # RomanizerTh
 
-RomanizerTh is a small, dependency-free Python library and command-line tool for a custom Thai-to-Roman transliteration scheme. It works character by character from one mapping table, writes lowercase output, keeps spaces, punctuation and non-Thai text as they are, and handles every code point in the Thai Unicode block.
+RomanizerTh is a small, dependency-free Python library and command-line tool for a custom Thai-to-Roman transliteration scheme. It works character by character from one mapping table, writes lowercase output, keeps spaces, punctuation and non-Thai text as they are, and handles every assigned code point in the Thai Unicode block.
 
 ภาษาไทย: [README.th.md](README.th.md)
 

@@ -1,6 +1,6 @@
 # RomanizerTh scheme
 
-This file is the reference for the scheme. It lists every code point in the Thai Unicode block (U+0E01 to U+0E5B) and what RomanizerTh does with it. The code in `romanizer_th/scheme.py` follows this table, and the test suite fails if a code point is missing from either.
+This file is the reference for the scheme. It lists every assigned code point in the Thai Unicode block (U+0E01 to U+0E5B) and what RomanizerTh does with it. The unassigned code points in that range (U+0E3B to U+0E3E) are kept as they are. The code in `romanizer_th/scheme.py` follows this table, and the test suite fails if a code point is missing from either.
 
 ## Rules
 
@@ -8,7 +8,7 @@ This file is the reference for the scheme. It lists every code point in the Thai
 2. **Character by character:** each character is replaced by its roman spelling in lowercase. Leading vowels (เ แ โ ใ ไ) are written where they are typed; nothing is reordered.
 3. **Ignore:** tone marks and the other marks in the Ignored table are dropped.
 4. **Repeat (ๆ):** mai yamok repeats the last roman letter written before it. Whitespace just before ๆ is dropped, so `ดีๆ` and `ดี ๆ` both give `dee`. At the start of the text it writes nothing.
-5. **Pass through:** Thai punctuation and symbols in the Pass-through table, and every character outside the Thai block (Latin letters, ASCII digits, spaces, punctuation), are kept as they are.
+5. **Pass through:** Thai punctuation and symbols in the Pass-through table, and every character outside the Thai block (Latin letters, ASCII digits, spaces, punctuation), are kept as they are after normalization in rule 1. NFC can join a Latin letter and a combining mark, so `e` followed by U+0301 comes out as `é`.
 6. **No word list:** there are no whole-word exceptions. A word gives the same result alone and inside a sentence.
 
 ## Consonants

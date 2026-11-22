@@ -6,10 +6,10 @@
 
 - `ห` and `ฮ` map to `h`. Before this, they were left in the output as Thai letters (`ใหม่` gave `iหm`; it now gives `ihm`).
 - Every code point in the Thai block is now handled: Thai digits become ASCII digits (`๑๒๓๔๕` gives `12345`), `ๅ` and `๎` are ignored, and `ฯ ฿ ๏ ๚ ๛` pass through.
-- `ๆ` repeats the last roman letter (`ดีๆ` gives `dee`).
+- `ๆ` repeats the last roman letter (`ดีๆ` gives `dee`), including a non-ASCII Latin letter (`caféๆ` gives `caféé`).
 - Unicode normalization: NFC, and a split sara am (`ํ` + `า`) is joined into `ำ`.
 - `docs/SCHEME.md`, the reference table for every Thai code point.
-- CLI: several words as arguments, standard input when no text is given, and `--version`.
+- CLI: several words as arguments, standard input when no text is given, and `--version`. Input and output are UTF-8 unless `PYTHONIOENCODING` sets another encoding.
 - `README.th.md`, `PROJECT_NOTICE.md`, `py.typed`, project metadata, and a test workflow for Python 3.10 to 3.13.
 - Tests (pytest): a completeness check over the Thai block, the examples inside sentences, `ห`/`ฮ`, `ๆ`, split sara am, the CLI, and `xfail` tests for the three open examples.
 

@@ -23,7 +23,7 @@ def _repeat_last_letter(out: list[str]) -> None:
         out.pop()
     for piece in reversed(out):
         for char in reversed(piece):
-            if char.isascii() and char.isalpha():
+            if char.isalpha() and unicodedata.name(char, "").startswith("LATIN "):
                 out.append(char)
                 return
     # ๆ at the start of the text (or after no letter) writes nothing.
