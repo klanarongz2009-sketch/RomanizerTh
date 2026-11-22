@@ -1,0 +1,88 @@
+# RomanizerTh (ภาษาไทย)
+
+RomanizerTh เป็น Python library และ command-line tool ขนาดเล็ก ไม่มี dependency สำหรับถอดอักษรไทยเป็นอักษรโรมันตาม scheme เฉพาะของโปรเจกต์นี้ แปลงทีละตัวอักษรจากตาราง mapping ตารางเดียว ออกเป็นตัวพิมพ์เล็ก เก็บช่องว่าง เครื่องหมายวรรคตอน และข้อความที่ไม่ใช่ภาษาไทยไว้ตามเดิม และรองรับทุก code point ใน Thai Unicode block
+
+English: [README.md](README.md)
+
+> โปรดอ่าน [PROJECT_NOTICE.md](PROJECT_NOTICE.md) (ภาษาอังกฤษ): โปรเจกต์นี้มีผู้ดูแลคนเดียว เข้ามาดูไม่สม่ำเสมอ และอาจตอบช้า
+
+## ติดตั้ง
+
+```sh
+pip install git+https://github.com/klanarongz2009-sketch/RomanizerTh
+```
+
+ต้องใช้ Python 3.10 ขึ้นไป
+
+## วิธีใช้
+
+```python
+from romanizer_th import romanize
+
+print(romanize("สวัสดี"))  # swasde
+print(romanize("อะไรใหม่ๆ"))  # oairihmm
+```
+
+Command line:
+
+```sh
+romanizerth วันจันทร์          # wanjantr
+romanizerth สวัสดี ครับ        # swasde crab
+echo "ดีๆ" | romanizerth      # dee (ถ้าไม่ใส่ข้อความ จะอ่านจาก standard input)
+romanizerth --version
+```
+
+## หลักการทำงาน
+
+1. ทำ NFC normalization และรวม `ํ` + `า` เป็น `ำ` ดังนั้น `ทํา` กับ `ทำ` ได้ `tum` เหมือนกัน
+2. แทนอักษรไทยทีละตัวตามตาราง สระนำ (เ แ โ ใ ไ) ออกตามตำแหน่งที่พิมพ์ ไม่สลับลำดับ
+3. วรรณยุกต์และเครื่องหมายที่ไม่มีค่าในตารางจะถูกข้าม
+4. `ๆ` ซ้ำอักษรโรมันตัวสุดท้ายที่ออกมาก่อนหน้า: `ดีๆ` ได้ `dee`, `อะไรใหม่ๆ` ได้ `oairihmm` ช่องว่างก่อน `ๆ` จะถูกตัด
+5. เลขไทยแปลงเป็นเลขอารบิก (`๑๒๓๔๕` ได้ `12345`) ส่วน `ฯ`, `฿` และเครื่องหมายไทยอื่นคงไว้ตามเดิม
+
+ไม่มีการ hard-code ทั้งคำ คำเดียวกันจึงได้ผลเหมือนกันทั้งตอนอยู่เดี่ยวและอยู่ในประโยค ตารางเต็มทุก code point อยู่ที่ [docs/SCHEME.md](docs/SCHEME.md)
+
+## ตัวอย่าง
+
+| Input | Output |
+| --- | --- |
+| วันจันทร์ | `wanjantr` |
+| สวัสดี | `swasde` |
+| อะไรใหม่ | `oairihm` |
+| อะไรใหม่ๆ | `oairihmm` |
+| ดีๆ | `dee` |
+| สามารถ | `samart` |
+| หนังสือ | `hnangsueo` |
+| ฮา | `ha` |
+| ๑๒๓ | `123` |
+
+## คำถามที่ยังเปิดอยู่
+
+ตัวอย่าง 3 คำในสเปกต้นฉบับขัดกับตาราง mapping ตอนนี้ library ยึดตาราง และเก็บแต่ละคำเป็น test แบบ `xfail` ไว้จนกว่าจะตัดสิน
+
+| คำ | ตัวอย่างในสเปก | ผลจากตาราง | จุดที่ต่าง |
+| --- | --- | --- | --- |
+| เป็น | `apn` | `aphn` | ตาราง map ป เป็น `ph` |
+| คำ | `kum` | `cum` | ตาราง map ค เป็น `c` |
+| ฤดี | `hruede` | `ruede` | ตัวอย่างมี `h` นำหน้าที่ไม่มีแถวไหนในตารางให้ |
+
+## พัฒนา
+
+```sh
+python -m venv .venv
+. .venv/bin/activate
+pip install -e ".[dev]"
+pytest -v
+```
+
+## License
+
+RomanizerTh ใช้ **TER-AI License 1.0** SPDX identifier `LicenseRef-TER-AI-1.0` ซึ่งเป็น license ของผู้ดูแลเอง สร้างจาก MIT และ license อื่น ๆ ทุกไฟล์ในรีโพนี้อยู่ภายใต้ license นี้ เว้นแต่ไฟล์นั้นระบุเป็นอย่างอื่น ไฟล์ source มีบรรทัด `SPDX-License-Identifier: LicenseRef-TER-AI-1.0` ข้อความเต็มดูที่ [LICENSE](LICENSE) (ฉบับภาษาอังกฤษเป็นฉบับที่ใช้บังคับ) สรุปสั้น ๆ:
+
+- ใช้ copy แก้ไข และแจกจ่ายได้ รวมถึงใช้เชิงพาณิชย์ และใช้ train, fine-tune หรือ evaluate โมเดล machine learning ได้
+- ต้องให้เครดิต: ถ้าแจกจ่าย ต้องคงบรรทัด copyright และข้อความ license (หรือลิงก์) และให้เครดิต "TER-AI (klanarongz2009-sketch)" พร้อมลิงก์ https://github.com/klanarongz2009-sketch/ter-ai
+- ถ้าแจกจ่ายไฟล์ที่แก้แล้ว ต้องใช้ TER-AI License 1.0 เหมือนเดิม เปิด source และระบุว่าแก้พร้อมวันที่
+- รวมกับงาน GPL-3.0 ได้ โดยต้องคงเครดิตไว้
+- ไม่มีการรับประกันและไม่มีความรับผิด
+
+GitHub แสดง license เป็น "Other" เพราะ TER-AI License 1.0 เป็น license เฉพาะ ไม่อยู่ในรายการ SPDX
