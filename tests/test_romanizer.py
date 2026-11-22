@@ -8,7 +8,7 @@ class RomanizerTests(unittest.TestCase):
         examples = {
             "วันจันทร์": "wanjantr",
             "สวัสดี": "swasde",
-            "อะไรใหม่": "oairihmm",
+            "อะไรใหม่ๆ": "oairihmm",
             "ดีๆ": "dee",
             "สามารถ": "samart",
             "เป็น": "apn",
@@ -18,6 +18,9 @@ class RomanizerTests(unittest.TestCase):
         for source, expected in examples.items():
             with self.subTest(source=source):
                 self.assertEqual(romanize(source), expected)
+
+    def test_previous_what_is_new_example_remains_compatible(self):
+        self.assertEqual(romanize("อะไรใหม่"), "oairihmm")
 
     def test_mapping_groups(self):
         self.assertEqual(CHAR_MAP["ก"], "g")

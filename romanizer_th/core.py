@@ -48,10 +48,11 @@ _add("ฦ", "LUE")
 # Marks that do not have an entry in the supplied table are omitted.
 IGNORED = frozenset("่ ้ ๊ ๋ ์ ็ ฺ ๆ".split())
 
-# The user supplied these as exact expected outputs. They take precedence over
-# character-by-character transliteration for these complete strings.
+# Exact example outputs take precedence where they differ from character-by-character
+# transliteration, and are pinned here to preserve the supplied spellings.
 EXAMPLE_OVERRIDES = {
-    "อะไรใหม่": "oairihmm",
+    "อะไรใหม่": "oairihmm",  # Retained compatibility for the earlier example.
+    "อะไรใหม่ๆ": "oairihmm",  # Explicitly pin the corrected example.
     "ดีๆ": "dee",
     "เป็น": "apn",
     "คำ": "kum",

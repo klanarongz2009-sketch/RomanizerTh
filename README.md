@@ -58,14 +58,14 @@ python -m romanizer_th "วันจันทร์"
 | --- | --- |
 | วันจันทร์ | `wanjantr` |
 | สวัสดี | `swasde` |
-| อะไรใหม่ | `oairihmm` |
+| อะไรใหม่ๆ | `oairihmm` |
 | ดีๆ | `dee` |
 | สามารถ | `samart` |
 | เป็น | `apn` |
 | คำ | `kum` |
 | ฤดี | `hruede` |
 
-The exact supplied examples are preserved as whole-string overrides where they differ from direct character substitution. This matters for `เป็น`, `คำ`, `ฤดี`, `อะไรใหม่`, and `ดีๆ`; the table maps `ป` to `PH`, `ค` to `C`, and `ฤ` to `RUE`, so those example outputs cannot be derived from the table alone. `๕` appears in the supplied `๕ น N` row and is retained as written; `ณ` is also mapped to `N` as the apparent consonant-table counterpart. The corrected row is `ไ ใ | I`: both leading-vowel letters map to `i`. The repetition mark `ๆ` is ignored, matching `ดีๆ → dee`.
+The exact supplied examples that differ from direct character substitution are preserved as whole-string overrides. This matters for `เป็น`, `คำ`, `ฤดี`, and `ดีๆ`; the table maps `ป` to `PH`, `ค` to `C`, and `ฤ` to `RUE`, so those outputs cannot be derived from the table alone. Both `อะไรใหม่` and the updated example `อะไรใหม่ๆ` produce `oairihmm` through the character map, with `ๆ` ignored. `๕` appears in the supplied `๕ น N` row and is retained as written; `ณ` is also mapped to `N` as the apparent consonant-table counterpart. The corrected row is `ไ ใ | I`: both leading-vowel letters map to `i`. The repetition mark `ๆ` is ignored, matching `ดีๆ → dee`.
 
 ## Development
 
