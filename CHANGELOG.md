@@ -11,7 +11,7 @@
 - `docs/SCHEME.md`, the reference table for every Thai code point.
 - CLI: several words as arguments, standard input when no text is given, and `--version`. Standard input and output are UTF-8 unless `PYTHONIOENCODING` names another encoding; an errors handler alone (`:replace`) keeps UTF-8. Command-line arguments are decoded by Python before the CLI starts.
 - `README.th.md`, `PROJECT_NOTICE.md`, `py.typed`, project metadata, and a test workflow for Python 3.10 to 3.13.
-- `LICENSE`: the project is licensed under the TER-AI License 1.0 (SPDX `LicenseRef-TER-AI-1.0`). Source files carry an `SPDX-License-Identifier` line, and `pyproject.toml` declares the license (PEP 639, setuptools 77 or later). Before this, no license had been chosen.
+- `LICENSE`: the project is licensed under the TER-AI License 2.0 (SPDX `LicenseRef-TER-AI-2.0`). Source files carry an `SPDX-License-Identifier` line, and `pyproject.toml` declares the license (PEP 639, setuptools 77 or later). Before this, no license had been chosen.
 - Tests (pytest): a completeness check over the Thai block, the examples inside sentences, `ห`/`ฮ`, `ๆ`, split sara am, the CLI, and `xfail` tests for the three open examples.
 
 ### Changed
@@ -19,6 +19,7 @@
 - The whole-string `EXAMPLE_OVERRIDES` are removed. Results come from the table and the rules only, so a word gives the same result alone and inside a sentence.
 - `เป็น`, `คำ` and `ฤดี` now follow the table (`aphn`, `cum`, `ruede`) until the open questions are decided.
 - The version is defined once, in `romanizer_th/__init__.py`.
+- License: TER-AI License 1.0 (`LicenseRef-TER-AI-1.0`, merged in `1715f8a`) is replaced by TER-AI License 2.0 (`LicenseRef-TER-AI-2.0`), the current version in the ter-ai repository. No release was made under 1.0.
 - `๕` is removed from the supplied row `ณ น ๕ → n`, which is now `ณ น → n`. `๕` is a digit like the others and gives `5`.
 
 ## 0.1.0
