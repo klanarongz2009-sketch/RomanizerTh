@@ -29,6 +29,11 @@ class RomanizerTests(unittest.TestCase):
         self.assertEqual(CHAR_MAP["๕"], "n")
         self.assertEqual(CHAR_MAP["ฤ"], "rue")
 
+    def test_leading_vowels_map_in_corrected_order(self):
+        self.assertEqual(CHAR_MAP["ไ"], "i")
+        self.assertEqual(CHAR_MAP["ใ"], "i")
+        self.assertEqual(romanize("ไใ"), "ii")
+
     def test_spaces_punctuation_and_unknown_characters_are_preserved(self):
         self.assertEqual(romanize("ก, ข!"), "g, k!")
         self.assertEqual(romanize("Hello 123"), "Hello 123")
