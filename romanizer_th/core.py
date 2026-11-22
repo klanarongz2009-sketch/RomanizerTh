@@ -51,7 +51,7 @@ IGNORED = frozenset("่ ้ ๊ ๋ ์ ็ ฺ ๆ".split())
 # Exact example outputs take precedence where they differ from character-by-character
 # transliteration, and are pinned here to preserve the supplied spellings.
 EXAMPLE_OVERRIDES = {
-    "อะไรใหม่": "oairihmm",  # Retained compatibility for the earlier example.
+    "อะไรใหม่": "oairihm",  # Corrected standalone example.
     "อะไรใหม่ๆ": "oairihmm",  # Explicitly pin the corrected example.
     "ดีๆ": "dee",
     "เป็น": "apn",
